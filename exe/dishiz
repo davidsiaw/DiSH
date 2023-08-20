@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'set'
 
 simname = ARGV[0]
@@ -104,8 +106,10 @@ class ComponentsDsl
   end
 end
 
+filename = File.join(Gem.loaded_specs['dishiz'].full_gem_path, 'data', 'dishiz', 'components.rb')
+
 dsl = ComponentsDsl.new
-dsl.instance_eval(File.read('components.rb'), 'components.rb')
+dsl.instance_eval(File.read(filename), filename)
 
 component_types = dsl.generate
 

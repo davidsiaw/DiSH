@@ -1,6 +1,6 @@
-# DiSH
+# DiSHiZ
 
-Digital Simulation with High-impedance
+Digital Simulation with High-Z (read impedance)
 
 ## What is this
 
