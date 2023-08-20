@@ -32,22 +32,21 @@ Component pin name is `<component name>_<pin name>`
 
 ## Built in component types
 
+- `VCC` - pins `A` - constant high
+- `GND` - pins `A` - constant low
+- `CLK` - pins `A` - clock with period delay
+- `STEP` - pins `A` - step from 0 to 1 at delay
 
-`VCC` - pins `A` - constant high
-`GND` - pins `A` - constant low
-`CLK` - pins `A` - clock with period delay
-`STEP` - pins `A` - step from 0 to 1 at delay
+- `BUF` - pins `A` `Y` - buffer
+- `NOT` - pins `A` `Y` - logic not
+- `AND` - pins `A` `B` `Y` - logic and
+- `OR` - pins `A` `B` `Y` - logic or
+- `XOR` - pins `A` `B` `Y` - logic xor
+- `NOR` - pins `A` `B` `Y` - logic nor
+- `NAND` - pins `A` `B` `Y` - logic nand
+- `MUX` - pins `A` `B` `S` `Y` - multiplexer S0: Y = A ; S1: Y = B
 
-`BUF` - pins `A` `Y` - buffer
-`NOT` - pins `A` `Y` - logic not
-`AND` - pins `A` `B` `Y` - logic and
-`OR` - pins `A` `B` `Y` - logic or
-`XOR` - pins `A` `B` `Y` - logic xor
-`NOR` - pins `A` `B` `Y` - logic nor
-`NAND` - pins `A` `B` `Y` - logic nand
-`MUX` - pins `A` `B` `S` `Y` - multiplexer S0: Y = A ; S1: Y = B
+- `DFF` - pins `D` `C` `Q` - d flipflop (init state Q = x)
 
-`DFF` - pins `D` `C` `Q` - d flipflop (init state Q = x)
-
-`TRI` - pins `A` `E` `Y` - tristate buffer E0: Y = z ; E1 Y = A
-`RES` - pins `A` `B` - resistor
+- `TRI` - pins `A` `E` `Y` - tristate buffer E0: Y = z ; E1 Y = A
+- `RES` - pins `A` `B` - resistor
