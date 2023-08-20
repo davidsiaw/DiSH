@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'dishiz'
 
@@ -12,7 +13,8 @@ extensions = %w[
 
 extensions.each do |x|
   fname = "#{simname}.#{x}"
-  next if File.exists?(fname)
+  next if File.exist?(fname)
+
   puts "'#{fname}' not found"
   exit(1)
 end
@@ -25,8 +27,8 @@ lines.each do |x|
   type = toks[1]
   delay = toks[2]
   c = Dishiz::Component.new(name, type, {
-    delay: Dishiz::TimeExpr.new(delay || '1ns').ps
-  })
+                              delay: Dishiz::TimeExpr.new(delay || '1ns').ps
+                            })
 
   componentset.add_component(name, c)
 end
@@ -47,5 +49,5 @@ end
 platform = Dishiz::SimulationPlatform.new(componentset, network)
 
 is = platform.init_state
-puts is.to_s
+puts is
 # p componentset.single_lead_components

@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Dishiz
+  # DSL for components.rb
   class ComponentsDsl
     def initialize
       @types = {}

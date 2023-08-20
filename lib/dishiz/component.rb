@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Dishiz
+  # Represents a component in a digital circuit
   class Component
     attr_reader :name, :component_type, :options
 

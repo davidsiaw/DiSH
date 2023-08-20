@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 module Dishiz
   class SimulationState
     attr_reader :platform, :pstime, :nodes, :proptimers
+
     def initialize(platform, pstime, nodes, proptimers)
       @platform = platform
       @pstime = pstime
@@ -9,11 +12,11 @@ module Dishiz
     end
 
     def to_s
-      puts "t=#{pstime} #{@nodes.to_a.map{|x,y| [x, state_to_s(y)]}.flatten.join(' ')}"
+      puts "t=#{pstime} #{@nodes.to_a.map { |x, y| [x, state_to_s(y)] }.flatten.join(' ')}"
     end
 
     def state_to_s(y)
-      case(y)
+      case y
       when false
         0
       when true

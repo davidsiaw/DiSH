@@ -1,18 +1,22 @@
+# frozen_string_literal: true
+
 module Dishiz
+  # The collection of components within a network
   class ComponentSet
     attr_reader :components, :pins
+
     def initialize
       @components = {}
       @pins = {}
     end
 
-    def simulate(c, time, nodes, network)
+    def simulate(c, time, nodes, _network)
       pins = {}
       res = {
         drive: [],
         stack: []
       }
-      
+
       c.pin_list.each do |pin|
         # quit quickly if we discover a component thats not fully connected
         return res if @pins[pin] == false
@@ -36,7 +40,7 @@ module Dishiz
     def single_lead_components
       @single_lead_components ||= begin
         results = []
-        @components.each do |name, c|
+        @components.each do |_name, c|
           next if c.component_type.pin_array.length != 1
 
           results << c
@@ -53,9 +57,8 @@ module Dishiz
     end
 
     def assign_pin(pin, node)
-      if pins[pin] != false
-        raise "pin #{pin} connected to two nodes!"
-      end
+      raise "pin #{pin} connected to two nodes!" if pins[pin] != false
+
       pins[pin] = node
     end
   end
