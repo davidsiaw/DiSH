@@ -1,0 +1,10 @@
+SRC inp 1 3ns 0 6ns 1 loop
+SRC clk 0 2ns 1 4ns 0 loop
+BIN and1 AND
+BIN and2 AND
+BIN dffq NOR
+BIN dfnq NOR
+BIN inv NOR
+BIN and0 AND
+BIN inv0 NOR
+BUF buf0 TRIG 10ps

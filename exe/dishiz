@@ -1,53 +1,31 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
 
 require 'dishiz'
+require 'yaml'
 
-simname = ARGV[0]
+include Dishiz
+exe = Executable.new
 
-extensions = %w[
-  init
-  components
-  net
-]
+puts NetStateDisplayer.new(exe.network).display_keys
 
-extensions.each do |x|
-  fname = "#{simname}.#{x}"
-  next if File.exist?(fname)
+time_limit = TimeExpr.new(ARGV[1] || '10ns').ps
 
-  puts "'#{fname}' not found"
-  exit(1)
+# initial
+ss = SimStep.new(exe.network)
+#puts ss.simstate
+ss.calc!
+puts ss.simstate
+
+loop do
+  break if ss.futurelist.length.zero?
+
+  ss2 = SimStep.new(exe.network, ss)
+  break if ss2.time > time_limit
+  #puts ss2.simstate
+  ss2.calc!
+  puts ss2.simstate
+
+  ss = ss2
 end
 
-componentset = Dishiz::ComponentSet.new
-lines = File.read("#{simname}.components").split("\n")
-lines.each do |x|
-  toks = x.split(' ')
-  name = toks[0]
-  type = toks[1]
-  delay = toks[2]
-  c = Dishiz::Component.new(name, type, {
-                              delay: Dishiz::TimeExpr.new(delay || '1ns').ps
-                            })
-
-  componentset.add_component(name, c)
-end
-
-network = {}
-lines = File.read("#{simname}.net").split("\n")
-lines.each do |x|
-  toks = x.split(' ')
-  pin = toks[0]
-  nodename = toks[1]
-
-  network[nodename] ||= Dishiz::Node.new(nodename)
-  network[nodename].add(pin)
-
-  componentset.assign_pin(pin, nodename)
-end
-
-platform = Dishiz::SimulationPlatform.new(componentset, network)
-
-is = platform.init_state
-puts is
-# p componentset.single_lead_components
+   #puts ss2.futurelist.map{|k,v| [k,v.to_a]}.to_h.to_yaml
